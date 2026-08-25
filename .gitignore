@@ -1,5 +1,25 @@
+# وابستگی‌ها
 node_modules/
-.next/
+
+# خروجی بیلد (توسط GitHub Actions دوباره ساخته می‌شود)
 dist/
-build/
+
+# لاگ‌ها
+logs/
 *.log
+npm-debug.log*
+
+# فایل‌های محیط و کش
+.env
+.env.*
+.cache/
+coverage/
+
+# فایل‌های سیستمی / ویرایشگر
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/*
+!.vscode/extensions.json
+.next/
+build/
