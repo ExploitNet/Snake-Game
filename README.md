@@ -65,6 +65,9 @@
 ## 📂 ساختار پروژه
 
 ```
+.github/workflows/
+└── deploy.yml               # بیلد و استقرار خودکار روی GitHub Pages
+.gitignore
 src/
 ├── App.tsx                  # پوسته‌ی اپ؛ هدر، Hi-Score سراسری و پس‌زمینه‌ی محیطی
 ├── main.tsx                 # نقطه‌ی ورود React
@@ -87,6 +90,44 @@ npm install     # نصب وابستگی‌ها
 npm run dev     # سرور توسعه (Vite)
 npm run build   # بیلد نسخه‌ی نهایی در dist/
 ```
+
+## 🌍 استقرار روی GitHub Pages (لینک اختصاصی)
+
+این پروژه ابزار بیلدش **Vite** است (نه webpack)، بنابراین به‌جای فایل webpack از یک **GitHub Actions Workflow** استفاده شده که با هر `push` به شاخه‌ی `main`، پروژه را به‌صورت خودکار بیلد و روی **GitHub Pages** منتشر می‌کند.
+
+فایل Workflow: [`.github/workflows/deploy.yml`](.github/workflows/deploy.yml)
+
+### مراحل (فقط یک‌بار)
+
+1. **ساخت مخزن در GitHub** — یک Repository جدید بسازید (مثلاً `snake-neon-arcade`).
+
+2. **آپلود کد:**
+
+   ```bash
+   git init
+   git add .
+   git commit -m "🐍 Snake — Neon Arcade"
+   git branch -M main
+   git remote add origin https://github.com/<نام-کاربری>/snake-neon-arcade.git
+   git push -u origin main
+   ```
+
+3. **فعال‌سازی GitHub Pages** — در تنظیمات مخزن:
+   `Settings → Pages → Build and deployment → Source` را روی **GitHub Actions** قرار دهید.
+
+4. **تمام!** با هر push، Workflow به‌صورت خودکار اجرا می‌شود و چند ثانیه بعد بازی روی لینک اختصاصی شما در دسترس است:
+
+   ```
+   https://<نام-کاربری>.github.io/snake-neon-arcade/
+   ```
+
+   لینک دقیق هر بار در تب **Actions** (و سپس environment با نام `github-pages`) نمایش داده می‌شود.
+
+### نکات
+
+- بیلد با `--base=./` انجام می‌شود تا مسیر فایل‌ها نسبی باشد و بازی زیر دامنه‌ی `github.io/<repo>/` بدون هیچ تنظیم اضافی درست کار کند.
+- Workflow فقط روی شاخه‌ی `main` اجرا می‌شود؛ برای تست می‌توانید آن را از تب Actions به‌صورت دستی (`Run workflow`) هم اجرا کنید.
+- فایل‌های `node_modules` و `dist` توسط [`.gitignore`](.gitignore) از مخزن کنار گذاشته شده‌اند.
 
 ## 🧠 نکات پیاده‌سازی
 
